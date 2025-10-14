@@ -1,0 +1,854 @@
+/* 从 Google Fonts 引入在线字体：'马善政'（用于艺术字）和 'Noto Serif SC'（思源宋体，用于正文） */
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+
+/* --- 全局重置和基础样式 --- */
+
+/* 通用选择器，用于重置所有元素的默认内外边距，并设置盒模型为 border-box */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 让元素的宽度和高度计算包含内边距和边框 */
+}
+
+/* 设置 body 的基础样式 */
+body {
+  font-family: 'Noto Serif SC', serif; /* 主要字体 */
+  background-color: #f9f7f1; /* 背景色：淡雅的米白色 */
+  color: #333; /* 主要文字颜色 */
+  line-height: 1.6; /* 行高，增加可读性 */
+}
+
+/* 通用容器类，用于限制内容最大宽度并居中 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto; /* 水平居中 */
+  padding: 0 20px; /* 两侧留白 */
+}
+
+/* --- 顶部导航 --- */
+header {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100; /* 确保导航栏在最上层 */
+  backdrop-filter: blur(10px); /* 毛玻璃效果 */
+}
+
+/* 导航栏内部容器 */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Logo 图标样式 */
+.logo i {
+  color: #2c6e9b;
+  font-size: 28px;
+}
+
+/* Logo 标题样式 */
+.logo h1 {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 24px;
+  background: linear-gradient(135deg, #2c6e9b, #4a9cc7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* 文字本身透明 */
+  letter-spacing: 1px; /* 字符间距 */
+}
+
+/* 导航链接样式 */
+nav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+  margin: 0 12px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative; /* 为下划线动画定位 */
+}
+
+/* 鼠标悬停时导航链接的样式 */
+nav a:hover {
+  color: #2c6e9b;
+}
+
+/* 导航链接下划线动画效果 */
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #2c6e9b;
+  transition: width 0.3s ease;
+}
+
+/* 鼠标悬停时，下划线展开 */
+nav a:hover::after {
+  width: 100%;
+}
+
+/* 导航栏右侧按钮容器 */
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* 通用按钮样式 */
+.btn {
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 15px;
+}
+
+/* 登录按钮特定样式 */
+.btn-login {
+  background: linear-gradient(135deg, #2c6e9b, #4a9cc7);
+  color: white;
+  box-shadow: 0 4px 10px rgba(44, 110, 155, 0.25); /* 添加阴影 */
+}
+
+/* 登录按钮悬停效果 */
+.btn-login:hover {
+  transform: translateY(-2px); /* 轻微上移 */
+  box-shadow: 0 6px 15px rgba(44, 110, 155, 0.35); /* 阴影加深 */
+}
+
+/* --- Hero 区域（主视觉横幅） --- */
+.hero {
+  height: 500px;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
+              url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 60px;
+}
+
+/* Hero 区域内容容器 */
+.hero-content {
+  max-width: 650px;
+  padding: 0 40px;
+}
+
+/* Hero 区域主标题 */
+.hero h2 {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 3.5rem;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* 文字阴影，使其在背景图上更清晰 */
+}
+
+/* Hero 区域描述文字 */
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+/* Hero 区域按钮容器 */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+/* 主要按钮样式（白色背景） */
+.btn-primary {
+  background: #fff;
+  color: #2c6e9b;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 主要按钮悬停效果 */
+.btn-primary:hover {
+  background: #f0f7ff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 次要按钮样式（透明背景，白色边框） */
+.btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* 次要按钮悬停效果 */
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* --- 搜索区域 --- */
+.search-section {
+  padding: 0 40px 50px;
+  text-align: center;
+}
+
+/* 搜索区标题 */
+.search-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-weight: 700;
+  position: relative;
+  display: inline-block; /* 使得下划线可以相对于它定位 */
+}
+
+/* 搜索区标题下划线 */
+.search-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #2c6e9b, #4a9cc7);
+  border-radius: 2px;
+}
+
+/* 搜索框容器 */
+.search-container {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* 搜索框整体 */
+.search-box {
+  display: flex;
+  height: 60px;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 搜索图标部分 */
+.search-icon {
+  background: #f0f7ff;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  color: #2c6e9b;
+  font-size: 20px;
+}
+
+/* 搜索输入框 */
+.search-input {
+  flex: 1;
+  border: none;
+  padding: 0 20px;
+  font-size: 16px;
+  outline: none;
+  background: white;
+}
+
+/* 搜索按钮 */
+.search-btn {
+  background: linear-gradient(90deg, #2c6e9b, #4a9cc7);
+  color: white;
+  border: none;
+  padding: 0 40px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 搜索按钮悬停效果 */
+.search-btn:hover {
+  background: linear-gradient(90deg, #235a83, #3a8abf);
+}
+
+/* --- 内容区块通用样式 --- */
+/* 每个内容区块（如热门诗词、主题精选）的通用间距 */
+.section {
+  padding: 60px 40px;
+}
+
+/* 区块头部的通用样式 */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* 区块标题的通用样式 */
+.section-title {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+  font-family: 'Ma Shan Zheng', cursive; /* 使用艺术字体 */
+}
+
+/* 区块标题下划线 */
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #e67e22, #e74c3c);
+  border-radius: 2px;
+}
+
+/* 区块副标题 */
+.section-subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* “查看更多”链接 */
+.view-all {
+  display: inline-block;
+  margin-top: 20px;
+  color: #2c6e9b;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+/* “查看更多”链接后的箭头 */
+.view-all::after {
+  content: '→';
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+/* “查看更多”链接悬停时，箭头右移 */
+.view-all:hover::after {
+  transform: translateX(5px);
+}
+
+/* --- 热门诗词 --- */
+/* 诗词卡片网格布局 */
+.poems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+/* 单个诗词卡片 */
+.poem-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 诗词卡片悬停效果 */
+.poem-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 诗词卡片图片 */
+.poem-image {
+  height: 180px;
+  width: 100%;
+  object-fit: cover; /* 保证图片不变形地填满容器 */
+}
+
+/* 诗词卡片内容区域 */
+.poem-content {
+  padding: 20px;
+  flex: 1; /* 占据剩余空间，使得标签可以被推到底部 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 诗词标题 */
+.poem-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+/* 诗词作者 */
+.poem-author {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+/* 诗词标签容器 */
+.poem-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto; /* 将标签推到卡片底部 */
+}
+
+/* 单个标签样式 */
+.tag {
+  background: #eaf6ff;
+  color: #2c6e9b;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* --- 主题精选 --- */
+/* 主题卡片网格布局 */
+.themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* 单个主题卡片 */
+.theme-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 主题卡片悬停效果 */
+.theme-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 主题卡片图片 */
+.theme-image {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 主题卡片内容区域 */
+.theme-content {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 主题标题 */
+.theme-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #2c3e50;
+}
+
+/* 主题描述 */
+.theme-desc {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  flex: 1; /* 占据剩余空间 */
+}
+
+/* 主题元数据（诗词数量、喜欢人数） */
+.theme-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+/* --- 最新更新 --- */
+/* 更新卡片网格布局 */
+.updates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* 单个更新卡片 */
+.update-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+}
+
+/* 更新卡片悬停效果 */
+.update-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 更新卡片头部 */
+.update-header {
+  background: linear-gradient(90deg, #2c6e9b, #4a9cc7);
+  padding: 25px;
+  color: white;
+}
+
+/* 更新日期 */
+.update-date {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+/* 更新标题 */
+.update-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* 更新卡片内容区域 */
+.update-content {
+  padding: 25px;
+}
+
+/* 更新描述 */
+.update-desc {
+  color: #7f8c8d;
+  line-height: 1.7;
+}
+
+/* --- 页脚 --- */
+footer {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 70px 40px 30px;
+}
+
+/* 页脚网格布局 */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+/* 页脚每一列的标题 */
+.footer-col h3 {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/* 页脚列标题的下划线 */
+.footer-col h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: #4a9cc7;
+}
+
+/* 页脚链接列表 */
+.footer-links {
+  list-style: none;
+}
+
+/* 页脚链接列表项 */
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+/* 页脚链接 */
+.footer-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+/* 页脚链接悬停效果 */
+.footer-links a:hover {
+  color: #4a9cc7;
+  transform: translateX(5px);
+}
+
+/* 联系信息样式 */
+.contact-info {
+  color: #bdc3c7;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 版权信息 */
+.copyright {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #95a5a6;
+  font-size: 0.9rem;
+}
+
+/* --- 响应式设计 --- */
+/* 当屏幕宽度小于 992px 时（平板设备） */
+@media (max-width: 992px) {
+  .nav-container {
+    padding: 15px 20px;
+  }
+  
+  .hero {
+    height: 450px;
+  }
+  
+  .hero h2 {
+    font-size: 2.8rem;
+  }
+}
+
+/* 当屏幕宽度小于 768px 时（手机设备） */
+@media (max-width: 768px) {
+  /* 导航栏垂直排列 */
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .hero {
+    height: 400px;
+    text-align: center;
+  }
+  
+  .hero-content {
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+  }
+  
+  .section {
+    padding: 50px 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  /* 网格布局调整为更适合小屏幕 */
+  .poems-grid,
+  .themes-grid,
+  .updates-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+/* 当屏幕宽度小于 576px 时（更小的手机设备） */
+@media (max-width: 576px) {
+  .hero {
+    height: 350px;
+  }
+  
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+  
+  /* 搜索框垂直排列 */
+  .search-box {
+    flex-direction: column;
+    height: auto;
+    border-radius: 12px;
+  }
+  
+  .search-icon,
+  .search-input,
+  .search-btn {
+    width: 100%;
+    border-radius: 0 !important;
+    padding: 15px;
+  }
+  
+  /* 所有卡片网格变为单列显示 */
+  .poems-grid,
+  .themes-grid,
+  .updates-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 登录/注册页面 --- */
+.login-register-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  min-height: 80vh;
+  background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+.form-container {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.form-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  background: #f1f3f5;
+  border-radius: 30px;
+  padding: 5px;
+}
+
+.form-toggle button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: #868e96;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.form-toggle button.active {
+  background: #2c6e9b;
+  color: white;
+  box-shadow: 0 2px 10px rgba(44, 110, 155, 0.3);
+}
+
+.auth-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #343a40;
+  font-family: 'Ma Shan Zheng', cursive;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #495057;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #2c6e9b;
+  box-shadow: 0 0 0 3px rgba(44, 110, 155, 0.15);
+}
+
+.form-actions {
+  text-align: right;
+  margin-bottom: 25px;
+}
+
+.forgot-password {
+  color: #2c6e9b;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2c6e9b, #4a9cc7);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(44, 110, 155, 0.35);
+}
+
+.social-login {
+  margin-top: 30px;
+  color: #adb5bd;
+}
+
+.social-login p {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #dee2e6;
+  color: #868e96;
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: #2c6e9b;
+  color: white;
+  border-color: #2c6e9b;
+}
