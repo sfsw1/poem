@@ -4,33 +4,26 @@
     <section>
         <h2 class="section-title">精选诗词推荐</h2>
         <div class="poem-grid">
-            <div class="poem-card">
-                <div class="poem-image poem-image-1">
-                    <p class="poem-excerpt-in-image">君不见黄河之水天上来，奔流到海不复回。君不见高堂明镜悲白发，朝如青丝暮成雪...</p>
-                    <div class="poem-title-in-image">将进酒</div>
+            <template v-if="isLoading || featuredPoems.length === 0">
+                <div v-for="n in 6" :key="n" class="poem-card skeleton-card">
+                    <div class="poem-image skeleton-image"></div>
+                    <div class="poem-excerpt-in-image skeleton-text"></div>
+                    <div class="poem-title-in-image skeleton-text short"></div>
                 </div>
-            </div>
-            
-            <div class="poem-card">
-                <div class="poem-image poem-image-2">
-                    <p class="poem-excerpt-in-image">明月几时有？把酒问青天。不知天上宫阙，今夕是何年...</p>
-                    <div class="poem-title-in-image">水调歌头</div>
-                </div>
-            </div>
-            
-            <div class="poem-card">
-                <div class="poem-image poem-image-3">
-                    <p class="poem-excerpt-in-image">床前明月光，疑是地上霜。举头望明月，低头思故乡...</p>
-                    <div class="poem-title-in-image">静夜思</div>
-                </div>
-            </div>
-            
-            <div class="poem-card">
-                <div class="poem-image poem-image-4">
-                    <p class="poem-excerpt-in-image">桃李春风一杯酒，江湖夜雨十年灯...</p>
-                    <div class="poem-title-in-image">桃李惊春</div>
-                </div>
-            </div>
+            </template>
+            <template v-else>
+                <router-link 
+                    v-for="(poem, index) in featuredPoems" 
+                    :key="poem.title" 
+                    :to="{ name: 'PoemDetail', params: { title: poem.title } }" 
+                    class="poem-card"
+                >
+                    <div :class="['poem-image', `poem-image-${(index % 6) + 1}`]">
+                        <p class="poem-excerpt-in-image">{{ poem.content.split('。')[0] }}...</p>
+                        <div class="poem-title-in-image">{{ poem.title }}</div>
+                    </div>
+                </router-link>
+            </template>
         </div>
     </section>
     
@@ -91,9 +84,35 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import { supabase } from '../api/supabase'; // 引入 supabase 客户端
+
+const featuredPoems = ref([]); // 存储精选诗词
+const isLoading = ref(true); // 添加加载状态
+
+const fetchAndShufflePoems = async () => {
+  isLoading.value = true; // 开始加载
+  try {
+    const { data, error } = await supabase
+      .from('poems')
+      .select('title, content'); // 只选择需要的字段
+
+    if (error) {
+      console.error('Error fetching poems for home page:', error.message || error);
+    } else if (data) {
+      // 随机打乱数组
+      const shuffled = data.sort(() => 0.5 - Math.random());
+      // 选取前6个作为精选诗词
+      featuredPoems.value = shuffled.slice(0, 6);
+    }
+  } finally {
+    isLoading.value = false; // 结束加载
+  }
+};
 
 onMounted(() => {
+  fetchAndShufflePoems(); // 组件挂载时获取并随机展示诗词
+
   // 卡片悬停效果增强
   const cards = document.querySelectorAll('.poem-card, .category-item');
   cards.forEach(card => {
@@ -110,4 +129,43 @@ onMounted(() => {
 
 <style scoped>
 /* Home.vue 特有样式（如果有），但全局样式已在 src/assets/style.css 中定义 */
+
+/* 骨架屏样式 */
+.skeleton-card {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-image {
+  width: 100%;
+  padding-top: 60%; /* 保持图片比例 */
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.skeleton-text {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  height: 1em;
+  margin: 0.5em 1em;
+  border-radius: 4px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+  margin: 0.5em auto 1em; /* 居中 */
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 </style>

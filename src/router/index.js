@@ -15,7 +15,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/poem/:id',
+    path: '/poem/:title',
     name: 'PoemDetail',
     component: PoemDetail
   },
