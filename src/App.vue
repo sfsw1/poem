@@ -42,6 +42,15 @@
     <router-view/>
   </main>
 
+  <!-- AI 聊天助手浮动按钮 -->
+  <button class="chatbot-toggle-button" @click="toggleChatbot">
+    <img src="/chatbot-icon.png" alt="AI Chatbot" v-if="!showChatbot" />
+    <span v-else>X</span>
+  </button>
+
+  <!-- AI 聊天助手组件 -->
+  <Chatbot v-if="showChatbot" class="floating-chatbot" />
+
   <!-- 底部信息 -->
   <footer>
       <div class="container">
@@ -87,9 +96,15 @@
 import { ref, onMounted } from 'vue';
 import { supabase } from './api/supabase'; // 引入 supabase 客户端
 import { useRouter } from 'vue-router';
+import Chatbot from './views/Chatbot.vue'; // 导入 Chatbot 组件
 
 const user = ref(null);
 const router = useRouter();
+const showChatbot = ref(false); // 控制聊天助手显示/隐藏的状态
+
+const toggleChatbot = () => {
+  showChatbot.value = !showChatbot.value;
+};
 
 onMounted(async () => {
   // 获取初始用户会话
@@ -149,5 +164,51 @@ const logout = async () => {
 
 .login-register-btn:hover, .logout-btn:hover {
   background-color: #a08060;
+}
+
+/* 聊天助手浮动按钮样式 */
+.chatbot-toggle-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #8b7355;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 确保在最上层 */
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-toggle-button:hover {
+  background-color: #a08060;
+}
+
+.chatbot-toggle-button img {
+  width: 30px;
+  height: 30px;
+}
+
+/* 浮动聊天助手组件样式 */
+.floating-chatbot {
+  position: fixed;
+  bottom: 100px; /* 调整位置，避免与按钮重叠 */
+  right: 30px;
+  width: 380px; /* 聊天窗口宽度 */
+  height: 500px; /* 聊天窗口高度 */
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 999; /* 略低于按钮 */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 确保内容不溢出 */
 }
 </style>

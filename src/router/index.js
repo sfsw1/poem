@@ -7,7 +7,6 @@ import PoetryLibrary from '../views/PoetryLibrary.vue'
 import PoetryCategories from '../views/PoetryCategories.vue'
 import MyPage from '../views/MyPage.vue' // 稍后创建
 import LoginRegister from '../views/LoginRegister.vue' // 稍后创建
-
 const routes = [
   {
     path: '/',
